@@ -4,6 +4,7 @@
 // io is a variable already taken in express
 var ios = null;
 var util = require('bitcore').util;
+var broadcast = require('./broadcast');
 
 module.exports.init = function(app, io_ext) {
   ios = io_ext;
@@ -17,27 +18,7 @@ module.exports.init = function(app, io_ext) {
 
 module.exports.broadcastTx = function(tx) {
   if (ios) {
-    var t;
-    if (typeof tx === 'string') {
-      t = {
-        txid: tx
-      };
-    }
-    
-    else {
-      t = {
-        txid: tx.txid,
-        size: tx.size,
-      };
-      // Outputs
-      var valueOut = 0;
-      tx.vout.forEach(function(o) {
-        valueOut += o.value * util.COIN;
-      });
-
-      t.valueOut = parseInt(valueOut) / util.COIN;
-    }
-    ios.sockets.in('inv').emit('tx', t);
+    ios.sockets.in('inv').emit('tx', broadcast.broadcastTx(tx));
   }
 };
 

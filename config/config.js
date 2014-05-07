@@ -72,8 +72,8 @@ module.exports = {
   leveldb: db,
   bitcoind: {
     protocol:  process.env.BITCOIND_PROTO || 'http',
-    user: process.env.BITCOIND_USER || 'user',
-    pass: process.env.BITCOIND_PASS || 'pass',
+    user: process.env.BITCOIND_USER || 'bitcoinrpc',
+    pass: process.env.BITCOIND_PASS || '3c0d689108054d508f29be4af6e1e741',
     host: process.env.BITCOIND_HOST || '127.0.0.1',
     port: process.env.BITCOIND_PORT || b_port,
     p2pPort: process.env.BITCOIND_P2P_PORT || p2p_port,

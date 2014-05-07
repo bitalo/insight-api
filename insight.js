@@ -80,7 +80,9 @@ require('./config/routes')(expressApp);
 
 // socket.io
 var server = require('http').createServer(expressApp);
+
 var ios = require('socket.io').listen(server);
+
 require('./app/controllers/socket.js').init(expressApp, ios);
 
 //Start the app by listening on <port>
