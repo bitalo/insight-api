@@ -31,6 +31,9 @@ module.exports = function(app) {
   var addresses = require('../app/controllers/addresses');
   app.get(apiPrefix + '/addr/:addr', addresses.show);
   app.get(apiPrefix + '/addr/:addr/utxo', addresses.utxo);
+  app.get(apiPrefix + '/addrs/:addrs/utxo', addresses.multiutxo);
+  app.post(apiPrefix + '/addr/create', addresses.create);
+  app.post(apiPrefix + '/tx/create', transactions.create);
   app.post(apiPrefix + '/addr/create', addresses.create);
   app.post(apiPrefix + '/tx/create', transactions.create);
 
