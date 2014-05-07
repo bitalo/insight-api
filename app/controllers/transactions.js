@@ -19,6 +19,37 @@ exports.send = function(req, res) {
   });
 };
 
+exports.create = function(req, res) {
+
+	var addrStr      = req.body.address;
+	var inputTxs     = req.body.input;
+	var outputAddrs  = req.body.output;
+
+	if(addrStr) {
+
+		var a = new Address(addrStr);
+
+		a.getUtxo(function(err, utxos) {
+			if (err) {
+				console.log(err);
+				return res.status(500).send('Internal Server Error');
+			}
+
+			var tb = new Builder({network: config.network});
+
+			tb.setUnspent(utxos);
+			tb.setOutputs(outputAddrs);
+			tb.build();
+
+
+			res.jsonp(tb.toObj());
+		});
+
+	} else if(inputTxs) {
+		//@TODO: implement input tx parameter
+	}
+}
+
 
 /**
  * Find transaction by hash ...

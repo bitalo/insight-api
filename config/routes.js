@@ -31,6 +31,8 @@ module.exports = function(app) {
   var addresses = require('../app/controllers/addresses');
   app.get(apiPrefix + '/addr/:addr', addresses.show);
   app.get(apiPrefix + '/addr/:addr/utxo', addresses.utxo);
+  app.post(apiPrefix + '/addr/create', addresses.create);
+  app.post(apiPrefix + '/tx/create', transactions.create);
 
   // Address property routes
   app.get(apiPrefix + '/addr/:addr/balance', addresses.balance);

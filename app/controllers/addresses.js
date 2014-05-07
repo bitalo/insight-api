@@ -19,6 +19,14 @@ var getAddr = function(req, res, next) {
   return a;
 };
 
+exports.create = function(req, res) {
+	// @TODO: add complete HD Wallet
+	var keys    = req.body.keys;
+	var number  = req.body.number;
+
+	var a = Address.createMultiSig(number, keys);
+	return res.jsonp(a);
+};
 
 exports.show = function(req, res, next) {
   var a = getAddr(req, res, next);

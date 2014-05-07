@@ -5,6 +5,7 @@ var async              = require('async');
 var bitcore            = require('bitcore');
 var BitcoreAddress     = bitcore.Address;
 var BitcoreTransaction = bitcore.Transaction;
+var TransactionBuilder = bitcore.TransactionBuilder;
 var BitcoreUtil        = bitcore.util;
 var Parser             = bitcore.BinaryParser;
 var Buffer             = bitcore.Buffer;
@@ -70,6 +71,20 @@ function Address(addrStr) {
   });
 
 }
+
+Address.createMultiSig = function(number, keys) {
+	var pubs = [];
+
+	keys.forEach(function(key) {
+		var b = new Buffer(key, 'hex');
+		pubs.push(b);
+	});
+
+	var opts = {pubkeys: pubs, nreq: number};
+	var info = TransactionBuilder.infoForP2sh(opts, 'testnet');
+
+	return {script: info.scriptBufHex, address: info.address, hash: info.hash.toString('hex')};
+};
 
 Address.prototype._getScriptPubKey = function(hex,n) {
   // ScriptPubKey is not provided by bitcoind RPC, so we parse it from tx hex.
