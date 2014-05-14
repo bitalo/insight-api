@@ -3,11 +3,14 @@
 /**
  * Module dependencies.
  */
-var Address     = require('../models/Address');
-var async       = require('async');
-var common      = require('./common');
-
+var Address       = require('../models/Address');
+var async         = require('async');
+var common        = require('./common');
+var bitcore       = require('bitcore');
+var Builder       = bitcore.TransactionBuilder;
 var Rpc           = require('../../lib/Rpc');
+var config        = require('../../config/config');
+
 
 var tDb = require('../../lib/TransactionDb').default();
 var bdb = require('../../lib/BlockDb').default();
